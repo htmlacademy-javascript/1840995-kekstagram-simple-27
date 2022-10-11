@@ -11,9 +11,6 @@ function getRandomInt(min, max) {
 getRandomInt(3, 8);
 
 
-function getLenghtString(chosenString, maxLenght) {
-  if (chosenString.length <= maxLenght) {
-    return chosenString.length <= maxLenght;
-  }
-}
-getLenghtString();
+const checkLenghtString = (string, maxLenght) => string.lenght <= maxLenght;
+
+checkLenghtString();
