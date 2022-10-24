@@ -60,19 +60,19 @@ const massiveDescriptionPhoto = Array.from({length: 25}, getDescriptionPhoto);
 
 console.log(massiveDescriptionPhoto); */
 
-const NUMBER_PICTURES = 25;
+const PHOTO_AMOUNT = 25;
 
-const LIKES = {
+const Like = {
   MIN: 15,
   MAX: 200
 };
 
-const COMMENTS = {
+const Comment = {
   MIN: 0,
   MAX: 200
 };
 
-const DESCRIPTIONS_PICTURES = [
+const DESCRIPTIONS = [
   'Любое описание 1',
   'Любое описание 2',
   'Любое описание 3',
@@ -85,16 +85,16 @@ const DESCRIPTIONS_PICTURES = [
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const getDescriptionPhoto = (index) => ({
+const getPhoto = (index) => ({
   id: index,
   url:`photos/${index}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS_PICTURES),
-  likes: getRandomInt(LIKES.MIN, LIKES.MAX),
-  comments: getRandomPositiveInteger(COMMENTS.MIN, COMMENTS.MAX),
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInt(Like.MIN, Like.MAX),
+  comments: getRandomPositiveInteger(Comment.MIN, Comment.MAX),
 });
 
-const massiveDescriptionPhoto = Array.from(
-  {length: NUMBER_PICTURES},
-  (_, indexPhoto) => getDescriptionPhoto(indexPhoto + 1));
+const photos = Array.from(
+  {length: PHOTO_AMOUNT},
+  (_, indexPhoto) => getPhoto(indexPhoto + 1));
 
-console.log(massiveDescriptionPhoto);
+photos();
