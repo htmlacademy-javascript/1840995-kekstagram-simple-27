@@ -1,19 +1,22 @@
-import {createPhotos} from './data.js';
-
-const userDialog = document.querySelector('.container');
+const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const similarPictures = createPhotos();
 
-const pictureFragment = document.createDocumentFragment();
+const renderPictures = (photos) => {
+  const pictureFragment = document.createDocumentFragment();
 
-similarPictures.forEach((photo) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.querySelector('.picture__img').innerHTML.src = photo.url;
-  pictureElement.querySelector('.picture__likes').textContent = photo.likes;
-  pictureElement.querySelector('.picture__comments').textContent = photo.comments;
+  photos.forEach((photo) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.querySelector('.picture__img').src = photo.url;
+    pictureElement.querySelector('.picture__img').alt = photo.description;
+    pictureElement.querySelector('.picture__likes').textContent = photo.likes;
+    pictureElement.querySelector('.picture__comments').textContent = photo.comments;
 
-  pictureFragment.appendChild(pictureElement);
-});
+    pictureFragment.appendChild(pictureElement);
+  });
 
-userDialog.appendChild(pictureFragment);
+  picturesContainer.appendChild(pictureFragment);
+
+};
+
+export { renderPictures };
