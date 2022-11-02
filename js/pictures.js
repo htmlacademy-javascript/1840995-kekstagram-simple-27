@@ -1,19 +1,21 @@
-import {createPhotos} from './data.js';
-
-const userDialog = document.querySelector('.container');
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-const similarPictures = createPhotos();
-
 const pictureFragment = document.createDocumentFragment();
+const picturesContainer = document.querySelector('.pictures');
 
-similarPictures.forEach((photo) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.querySelector('.picture__img').innerHTML.src = photo.url;
-  pictureElement.querySelector('.picture__likes').textContent = photo.likes;
-  pictureElement.querySelector('.picture__comments').textContent = photo.comments;
+const randerPictures = (photos) => {
+  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-  pictureFragment.appendChild(pictureElement);
-});
+  photos.forEach((photo) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.querySelector('.picture__img').src = photo.url;
+    pictureElement.querySelector('.picture__img').alt = photo.description;
+    pictureElement.querySelector('.picture__likes').textContent = photo.likes;
+    pictureElement.querySelector('.picture__comments').textContent = photo.comments;
 
-userDialog.appendChild(pictureFragment);
+    pictureFragment.appendChild(pictureElement);
+  });
+
+  picturesContainer.appendChild(pictureFragment);
+
+};
+
+export { randerPictures };
