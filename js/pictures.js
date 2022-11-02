@@ -1,8 +1,9 @@
-const pictureFragment = document.createDocumentFragment();
 const picturesContainer = document.querySelector('.pictures');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const randerPictures = (photos) => {
-  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
+const renderPictures = (photos) => {
+  const pictureFragment = document.createDocumentFragment();
 
   photos.forEach((photo) => {
     const pictureElement = pictureTemplate.cloneNode(true);
@@ -18,4 +19,4 @@ const randerPictures = (photos) => {
 
 };
 
-export { randerPictures };
+export { renderPictures };
