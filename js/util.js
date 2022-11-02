@@ -19,10 +19,8 @@ function getRandomPositiveInteger (a, b) {
 
 const checkLengthString = (string, maxLength) => string.length <= maxLength;
 
-checkLengthString();
+checkLengthString(0, 100);
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-export {getRandomInt};
-export {getRandomPositiveInteger};
-export {getRandomArrayElement};
+export {getRandomInt, getRandomPositiveInteger, getRandomArrayElement};
