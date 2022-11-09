@@ -60,7 +60,7 @@ function openModal() {
 function closeModal() {
   body.classList.remove('modal-open');
   modal.classList.add('hidden');
-  defaultUpload.value = defaultUpload.reset;
+  defaultUpload.value = '';
   form.reset();
 
   document.removeEventListener('keydown', onDocumentEscKeydown);
