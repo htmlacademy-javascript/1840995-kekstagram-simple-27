@@ -6,29 +6,31 @@ const buttonSmaller = fieldScale.querySelector('.scale__control--smaller');
 const buttonBigger = fieldScale.querySelector('.scale__control--bigger');
 const valueScale = fieldScale.querySelector('.scale__control--value');
 
-const STEP = 25;
-const MAX = 100;
-const MIN = 25;
+const Scale = {
+  STEP: 25,
+  MAX: 100,
+  MIN: 25
+};
 
-previewPicture.style.transform = 'scale(0.5)';
-buttonSmaller.addEventListener('click', makeSmaller);
+const getScaleValue = () => parseInt(valueScale.value, 10);
+let numberValue = getScaleValue();
 
-buttonBigger.addEventListener('click', makeBigger);
-
-function makeSmaller() {
-  const numberValue = parseInt(valueScale.value, 10);
-  if (numberValue !== MIN) {
-    const resultSmaller = numberValue - STEP;
-    valueScale.value = resultSmaller + '%';
-    previewPicture.style.transform = `scale(${resultSmaller / 100})`;
+const onDecButtonClick = () => {
+  if (numberValue > Scale.MIN) {
+    numberValue -= Scale.STEP;
+    valueScale.value = `${numberValue}%`;
+    previewPicture.style.transform = `scale(${numberValue / 100})`;
   }
-}
+};
 
-function makeBigger() {
-  const numberValue = parseInt(valueScale.value, 10);
-  if (numberValue !== MAX) {
-    const resultBigger = numberValue + STEP;
-    valueScale.value = resultBigger + '%';
-    previewPicture.style.transform = `scale(${resultBigger / 100})`;
+const onIncButtonClick = () => {
+  if (numberValue < Scale.MAX) {
+    numberValue += Scale.STEP;
+    valueScale.value = `${numberValue}%`;
+    previewPicture.style.transform = `scale(${numberValue / 100})`;
   }
-}
+};
+
+buttonSmaller.addEventListener('click', onDecButtonClick);
+
+buttonBigger.addEventListener('click', onIncButtonClick);
