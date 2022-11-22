@@ -1,12 +1,13 @@
 import { renderPictures } from './pictures.js';
+import { showAlert } from './util.js';
 import './form.js';
 import './scale.js';
 import './effects.js';
 import { getData } from './api.js';
-import {setUserFormSubmit, closeModal} from './form.js';
+import {setUserFormSubmit, onErrorSubmit, onSuccessSubmit} from './form.js';
 
 // const photos = createPhotos();
 // renderPictures(photos);
-getData(renderPictures);
+getData(renderPictures, showAlert);
 
-setUserFormSubmit(closeModal);
+setUserFormSubmit(onSuccessSubmit, onErrorSubmit);

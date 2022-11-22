@@ -47,4 +47,7 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-export { getRandomInt, getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert };
+
+const ERROR_TEXT = 'Ошибка загрузки фотографий. Попробуйте перезагрузить страницу';
+
+export { getRandomInt, getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert, ERROR_TEXT };

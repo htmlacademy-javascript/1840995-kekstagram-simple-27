@@ -1,34 +1,34 @@
-import { showAlert } from './util.js';
+import { ERROR_TEXT } from './util.js';
+const MAIN_URL = 'https://27.javascript.pages.academy/kekstagram-simple';
 
-const getData = (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
+const getData = (onSuccess, onFail) => {
+  fetch(`${MAIN_URL}/data`)
     .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
     })
     .catch(() => {
-      showAlert('Ошибка загрузки фотографий. Попробуйте перезагрузить страницу');
+      onFail(ERROR_TEXT);
     });
 };
 
-const sendData = (onSuccess, openMessageSuccess, openErrorMessage, body) => {
+const sendData = (onSuccess, onFail, data) => {
   fetch(
-    'https://27.javascript.pages.academy/kekstagram-simple',
+    MAIN_URL,
     {
       method: 'POST',
-      body,
+      data,
     },
   )
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        openMessageSuccess();
       } else {
-        openErrorMessage();
+        onFail();
       }
     })
     .catch(() => {
-      openErrorMessage();
+      onFail();
     });
 };
 
