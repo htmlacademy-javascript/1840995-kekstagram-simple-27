@@ -7,10 +7,10 @@ const defaultUpload = form.querySelector('#upload-file');
 const body = document.querySelector('body');
 const modalCloseElement = form.querySelector('#upload-cancel');
 const messageSuccess = document.querySelector('#success').content.querySelector('.success');
-// const messageSuccessOverlayClick = document.querySelector('#success').content.querySelector('.success__inner');
+const messageSuccessOverlayClick = document.querySelector('#success').content.querySelector('.success__inner');
 const buttonSuccess = messageSuccess.querySelector('.success__button');
 const messageError = document.querySelector('#error').content.querySelector('.error');
-// const messageErrorOverlayClick = document.querySelector('#error').content.querySelector('.error__inner');
+const messageErrorOverlayClick = document.querySelector('#error').content.querySelector('.error__inner');
 const buttonError = messageError.querySelector('.error__button');
 
 const onSuccessEscClick = (evt) => {
@@ -19,10 +19,19 @@ const onSuccessEscClick = (evt) => {
     removeMessageSuccess();
   }
 };
-const onOverlayClick = (evt, messageInner, message) => {
-  const click = evt.composedPath().includes(messageInner);
+const onOverlaySuccessClick = (evt) => {
+  const click = evt.composedPath().includes(messageSuccessOverlayClick);
   if (!click) {
-    message.classList.add('hidden');
+    messageSuccessOverlayClick.style.display = 'none';
+    removeMessageError();
+    removeMessageSuccess();
+  }
+};
+
+const onOverlayErrorClick = (evt) => {
+  const click = evt.composedPath().includes(messageErrorOverlayClick);
+  if (!click) {
+    messageErrorOverlayClick.style.display = 'none';
     removeMessageError();
     removeMessageSuccess();
   }
@@ -37,14 +46,14 @@ const onErrorEscClick = (evt) => {
 
 const openMessageSuccess = () => {
   body.appendChild(messageSuccess);
-  document.addEventListener('click', onOverlayClick);
+  document.addEventListener('click', onOverlaySuccessClick);
   document.addEventListener('keydown', onSuccessEscClick);
   buttonSuccess.addEventListener('click', removeMessageSuccess);
 };
 
 const openMessageError = () => {
   body.appendChild(messageError);
-  document.addEventListener('click', onOverlayClick);
+  document.addEventListener('click', onOverlayErrorClick);
   document.addEventListener('keydown', onErrorEscClick);
   buttonError.addEventListener('click', removeMessageError);
 };
@@ -52,13 +61,13 @@ const openMessageError = () => {
 
 function removeMessageSuccess () {
   body.removeChild(messageSuccess);
-  document.removeEventListener('click', onOverlayClick);
+  document.removeEventListener('click', onOverlaySuccessClick);
   document.removeEventListener('keydown', onSuccessEscClick);
 }
 
 function removeMessageError () {
   body.removeChild(messageError);
-  document.removeEventListener('click', onOverlayClick);
+  document.removeEventListener('click', onOverlayErrorClick);
   document.removeEventListener('keydown', onErrorEscClick);
 }
 
