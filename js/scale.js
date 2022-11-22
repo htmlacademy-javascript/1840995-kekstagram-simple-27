@@ -13,21 +13,20 @@ const Scale = {
 };
 
 const getScaleValue = () => parseInt(valueScale.value, 10);
-let numberValue = getScaleValue();
 
 const onDecButtonClick = () => {
-  if (numberValue > Scale.MIN) {
-    numberValue -= Scale.STEP;
-    valueScale.value = `${numberValue}%`;
-    previewPicture.style.transform = `scale(${numberValue / 100})`;
+  const newValue = getScaleValue() - Scale.STEP;
+  if (newValue >= Scale.MIN) {
+    valueScale.value = `${newValue}%`;
+    previewPicture.style.transform = `scale(${newValue / 100})`;
   }
 };
 
 const onIncButtonClick = () => {
-  if (numberValue < Scale.MAX) {
-    numberValue += Scale.STEP;
-    valueScale.value = `${numberValue}%`;
-    previewPicture.style.transform = `scale(${numberValue / 100})`;
+  const newValue = getScaleValue() + Scale.STEP;
+  if (newValue <= Scale.MAX) {
+    valueScale.value = `${newValue}%`;
+    previewPicture.style.transform = `scale(${newValue / 100})`;
   }
 };
 
