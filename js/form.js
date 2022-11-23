@@ -1,55 +1,14 @@
 import { sendData } from './api.js';
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, body, form } from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffect } from './effects.js';
+import { openMessageError, openMessageSuccess } from './messages.js';
 
-const form = document.querySelector('#upload-select-image');
 const modal = form.querySelector('.img-upload__overlay');
-const defaultUpload = form.querySelector('#upload-file');
-const body = document.querySelector('body');
-const modalCloseElement = form.querySelector('#upload-cancel');
-const messageSuccess = document.querySelector('#success').content.querySelector('.success');
-const buttonSuccess = messageSuccess.querySelector('.success__button');
-const messageError = document.querySelector('#error').content.querySelector('.error');
-const buttonError = messageError.querySelector('.error__button');
+const fileUpload = form.querySelector('#upload-file');
+const modalClose = form.querySelector('#upload-cancel');
+const submitButton = form.querySelector('.img-upload__submit');
 
-const onOverlayClick = (evt) => {
-  if (evt.target.className.includes('message')) {
-    closeMessage();
-  }
-};
-
-const onMessageEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeMessage();
-  }
-};
-
-const onButtonClick = () => {
-  closeMessage();
-};
-
-const openMessageSuccess = () => {
-  body.appendChild(messageSuccess);
-  document.addEventListener('click', onOverlayClick);
-  document.addEventListener('keydown', onMessageEscKeydown);
-  buttonSuccess.addEventListener('click', onButtonClick);
-};
-
-const openMessageError = () => {
-  body.appendChild(messageError);
-  document.addEventListener('click', onOverlayClick);
-  document.addEventListener('keydown', onMessageEscKeydown);
-  buttonError.addEventListener('click', onButtonClick);
-};
-
-function closeMessage() {
-  const messageElement = body.querySelector('.message');
-  body.removeChild(messageElement);
-  document.removeEventListener('click', onOverlayClick);
-  document.removeEventListener('keydown', onMessageEscKeydown);
-}
 const onDocumentEscKeydown = (evt) => {
   if (isEscapeKey(evt) && !document.querySelector('.message')) {
     evt.preventDefault();
@@ -61,42 +20,55 @@ const onButtonCloseClick = () => {
   closeModal();
 };
 
-function openModal() {
+const openModal = () => {
   body.classList.add('modal-open');
   modal.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentEscKeydown);
-  modalCloseElement.addEventListener('click', onButtonCloseClick);
-}
+  modalClose.addEventListener('click', onButtonCloseClick);
+};
 
 function closeModal() {
   body.classList.remove('modal-open');
   modal.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentEscKeydown);
-  modalCloseElement.removeEventListener('click', onButtonCloseClick);
-  defaultUpload.value = '';
+  modalClose.removeEventListener('click', onButtonCloseClick);
+  fileUpload.value = '';
   form.reset();
   resetScale();
   resetEffect();
 }
 
-defaultUpload.addEventListener('change', () => {
+fileUpload.addEventListener('change', () => {
   openModal();
 });
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
 
 const onSuccessSubmit = () => {
   closeModal();
   openMessageSuccess();
+  unblockSubmitButton();
 };
 
 const onErrorSubmit = () => {
   openMessageError();
+  unblockSubmitButton();
 };
 
 const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    blockSubmitButton();
     sendData(onSuccessSubmit, onErrorSubmit, new FormData(evt.target));
   });
 };
 
-export { setUserFormSubmit, closeModal };
+export { setUserFormSubmit };

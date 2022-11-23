@@ -1,6 +1,4 @@
-
-const form = document.querySelector('#upload-select-image');
-const previewPicture = form.querySelector('.img-upload__preview img');
+import { form, previewPicture } from './util.js';
 
 const onFilterChange = (evt) => {
   const currentValue = evt.target.value;
