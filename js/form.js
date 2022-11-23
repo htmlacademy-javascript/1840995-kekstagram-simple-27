@@ -51,7 +51,7 @@ function closeMessage() {
   document.removeEventListener('keydown', onMessageEscKeydown);
 }
 const onDocumentEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && (evt.target.className.includes('message'))) {
+  if (isEscapeKey(evt) && !document.querySelector('.message')) {
     evt.preventDefault();
     closeModal();
   }
