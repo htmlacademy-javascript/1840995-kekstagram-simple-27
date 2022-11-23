@@ -47,11 +47,11 @@ const openMessageError = () => {
 function closeMessage() {
   const messageElement = body.querySelector('.message');
   body.removeChild(messageElement);
-  messageElement.removeEventListener('click', onOverlayClick);
-  messageElement.removeEventListener('keydown', onMessageEscKeydown);
+  document.removeEventListener('click', onOverlayClick);
+  document.removeEventListener('keydown', onMessageEscKeydown);
 }
 const onDocumentEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && (evt.target.className.includes('message'))) {
     evt.preventDefault();
     closeModal();
   }
