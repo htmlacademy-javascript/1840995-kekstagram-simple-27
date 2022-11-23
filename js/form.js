@@ -1,14 +1,11 @@
 import { sendData } from './api.js';
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, body, form } from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffect } from './effects.js';
 import { openMessageError, openMessageSuccess } from './messages.js';
 
-
-const form = document.querySelector('#upload-select-image');
 const modal = form.querySelector('.img-upload__overlay');
 const fileUpload = form.querySelector('#upload-file');
-const body = document.querySelector('body');
 const modalClose = form.querySelector('#upload-cancel');
 const submitButton = form.querySelector('.img-upload__submit');
 
@@ -23,12 +20,12 @@ const onButtonCloseClick = () => {
   closeModal();
 };
 
-function openModal() {
+const openModal = () => {
   body.classList.add('modal-open');
   modal.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentEscKeydown);
   modalClose.addEventListener('click', onButtonCloseClick);
-}
+};
 
 function closeModal() {
   body.classList.remove('modal-open');

@@ -1,6 +1,5 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, body } from './util.js';
 
-const body = document.querySelector('body');
 const messageSuccess = document.querySelector('#success').content.querySelector('.success');
 const buttonSuccess = messageSuccess.querySelector('.success__button');
 const messageError = document.querySelector('#error').content.querySelector('.error');

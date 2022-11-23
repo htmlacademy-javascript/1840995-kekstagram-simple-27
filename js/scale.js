@@ -1,10 +1,4 @@
-
-const form = document.querySelector('#upload-select-image');
-const previewPicture = form.querySelector('.img-upload__preview img');
-const fieldScale = form.querySelector('.scale');
-const buttonSmaller = fieldScale.querySelector('.scale__control--smaller');
-const buttonBigger = fieldScale.querySelector('.scale__control--bigger');
-const valueScale = fieldScale.querySelector('.scale__control--value');
+import { form, previewPicture } from './util.js';
 
 const Scale = {
   STEP: 25,
@@ -12,6 +6,11 @@ const Scale = {
   MIN: 25,
   DEFAULT: 100,
 };
+
+const fieldScale = form.querySelector('.scale');
+const buttonSmaller = fieldScale.querySelector('.scale__control--smaller');
+const buttonBigger = fieldScale.querySelector('.scale__control--bigger');
+const valueScale = fieldScale.querySelector('.scale__control--value');
 
 const getScaleValue = () => parseInt(valueScale.value, 10);
 
