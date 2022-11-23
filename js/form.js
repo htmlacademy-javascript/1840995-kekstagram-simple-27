@@ -9,7 +9,7 @@ const form = document.querySelector('#upload-select-image');
 const modal = form.querySelector('.img-upload__overlay');
 const fileUpload = form.querySelector('#upload-file');
 const body = document.querySelector('body');
-const modalCloseElement = form.querySelector('#upload-cancel');
+const modalClose = form.querySelector('#upload-cancel');
 const submitButton = form.querySelector('.img-upload__submit');
 
 const onDocumentEscKeydown = (evt) => {
@@ -27,14 +27,14 @@ function openModal() {
   body.classList.add('modal-open');
   modal.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentEscKeydown);
-  modalCloseElement.addEventListener('click', onButtonCloseClick);
+  modalClose.addEventListener('click', onButtonCloseClick);
 }
 
 function closeModal() {
   body.classList.remove('modal-open');
   modal.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentEscKeydown);
-  modalCloseElement.removeEventListener('click', onButtonCloseClick);
+  modalClose.removeEventListener('click', onButtonCloseClick);
   fileUpload.value = '';
   form.reset();
   resetScale();

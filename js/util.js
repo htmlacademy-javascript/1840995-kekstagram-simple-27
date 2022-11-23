@@ -1,6 +1,8 @@
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
+const MAIN_URL = 'https://27.javascript.pages.academy/kekstagram-simple';
+const ERROR_TEXT = 'Ошибка загрузки фотографий. Попробуйте перезагрузить страницу';
 const ALERT_SHOW_TIME = 5000;
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -20,9 +22,5 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-
-const MAIN_URL = 'https://27.javascript.pages.academy/kekstagram-simple';
-
-const ERROR_TEXT = 'Ошибка загрузки фотографий. Попробуйте перезагрузить страницу';
 
 export { isEscapeKey, showAlert, ERROR_TEXT, MAIN_URL };

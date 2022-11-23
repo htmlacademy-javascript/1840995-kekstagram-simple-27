@@ -38,8 +38,8 @@ const openMessageError = () => {
 };
 
 function closeMessage() {
-  const messageElement = body.querySelector('.message');
-  body.removeChild(messageElement);
+  const message = body.querySelector('.message');
+  body.removeChild(message);
   document.removeEventListener('click', onOverlayClick);
   document.removeEventListener('keydown', onMessageEscKeydown);
 }
