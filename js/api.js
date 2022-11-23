@@ -1,5 +1,4 @@
-import { ERROR_TEXT } from './util.js';
-const MAIN_URL = 'https://27.javascript.pages.academy/kekstagram-simple';
+import { ERROR_TEXT, MAIN_URL } from './util.js';
 
 const getData = (onSuccess, onFail) => {
   fetch(`${MAIN_URL}/data`)
