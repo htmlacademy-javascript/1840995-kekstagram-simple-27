@@ -1,5 +1,7 @@
 import { sendData } from './api.js';
 import { isEscapeKey } from './util.js';
+import { resetScale } from './scale.js';
+import { resetEffect } from './effects.js';
 
 const form = document.querySelector('#upload-select-image');
 const modal = form.querySelector('.img-upload__overlay');
@@ -12,10 +14,7 @@ const messageError = document.querySelector('#error').content.querySelector('.er
 const buttonError = messageError.querySelector('.error__button');
 
 const onOverlayClick = (evt) => {
-  const messageElement = body.querySelector('.message');
-  const click = evt.composedPath().includes(messageElement);
-  if (!click) {
-    messageElement.style.display = 'none';
+  if (evt.target.className.includes('message')) {
     closeMessage();
   }
 };
@@ -48,50 +47,11 @@ const openMessageError = () => {
 function closeMessage() {
   const messageElement = body.querySelector('.message');
   body.removeChild(messageElement);
-  messageElement.removeEventListener('click', onOverlayClick);
-  messageElement.removeEventListener('keydown', onMessageEscKeydown);
-  // удаление обработчика с кнопки
-  // удаление элемента мессаджа
-  // удаление обработчиков
+  document.removeEventListener('click', onOverlayClick);
+  document.removeEventListener('keydown', onMessageEscKeydown);
 }
-
-//  onSuccessEscClick
-//  buttonSuccess.addEventListener('click', (evt) => {
-//   body.removeChild(messageSuccess);
-//   // или другой вариант
-//   // messageSuccess.classList.add('hidden');
-//   document.addEventListener('keydown', () => {
-//     if (isEscapeKey(evt)) {
-//       evt.preventDefault();
-//       messageSuccess.classList.add('hidden');
-//     }
-//   });
-// });
-
-// const blockSubmitButton = () => {
-//   submitButton.disabled = true;
-//   submitButton.textContent = 'Публикую...';
-// };
-
-// const unblockSubmitButton = () => {
-//   submitButton.disabled = false;
-//   submitButton.textContent = 'Опубликовать';
-// };
-
-// body.appendChild(messageSuccess);
-// функцию подготовил и для сообщения об ошибке тоже
-// function onMessageAnyClick(messageInner, message) {
-//   document.addEventListener('click', (evt) => {
-//     evt.preventDefault();
-//     const click = evt.composedPath().includes(messageInner);
-//     if (!click) {
-//       message.classList.add('hidden');
-//     }
-//   });
-// }
-
 const onDocumentEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && (evt.target.className.includes('message'))) {
     evt.preventDefault();
     closeModal();
   }
@@ -104,7 +64,6 @@ const onButtonCloseClick = () => {
 function openModal() {
   body.classList.add('modal-open');
   modal.classList.remove('hidden');
-
   document.addEventListener('keydown', onDocumentEscKeydown);
   modalCloseElement.addEventListener('click', onButtonCloseClick);
 }
@@ -116,6 +75,8 @@ function closeModal() {
   modalCloseElement.removeEventListener('click', onButtonCloseClick);
   defaultUpload.value = '';
   form.reset();
+  resetScale();
+  resetEffect();
 }
 
 defaultUpload.addEventListener('change', () => {
@@ -131,19 +92,11 @@ const onErrorSubmit = () => {
   openMessageError();
 };
 
-const setUserFormSubmit = (onSuccess, onError) => {
+const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    sendData (
-      () => {
-        onSuccess();
-      },
-      () => {
-        onError();
-      },
-      new FormData(evt.target),
-    );
+    sendData(onSuccessSubmit, onErrorSubmit, new FormData(evt.target));
   });
 };
 
-export { setUserFormSubmit, closeModal, openMessageError, onSuccessSubmit, onErrorSubmit };
+export { setUserFormSubmit, closeModal };
