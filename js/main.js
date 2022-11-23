@@ -1,8 +1,11 @@
-import { createPhotos } from './data.js';
 import { renderPictures } from './pictures.js';
+import { showAlert } from './util.js';
 import './form.js';
 import './scale.js';
 import './effects.js';
+import { getData } from './api.js';
+import { setUserFormSubmit } from './form.js';
 
-const photos = createPhotos();
-renderPictures(photos);
+getData(renderPictures, showAlert);
+
+setUserFormSubmit();

@@ -12,4 +12,10 @@ const onFilterChange = (evt) => {
   }
 };
 
+const resetEffect = () => {
+  previewPicture.className = '';
+};
+
 form.addEventListener('change', onFilterChange);
+
+export { resetEffect };

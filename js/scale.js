@@ -9,28 +9,35 @@ const valueScale = fieldScale.querySelector('.scale__control--value');
 const Scale = {
   STEP: 25,
   MAX: 100,
-  MIN: 25
+  MIN: 25,
+  DEFAULT: 100,
 };
 
 const getScaleValue = () => parseInt(valueScale.value, 10);
-let numberValue = getScaleValue();
 
 const onDecButtonClick = () => {
-  if (numberValue > Scale.MIN) {
-    numberValue -= Scale.STEP;
-    valueScale.value = `${numberValue}%`;
-    previewPicture.style.transform = `scale(${numberValue / 100})`;
+  const newValue = getScaleValue() - Scale.STEP;
+  if (newValue >= Scale.MIN) {
+    valueScale.value = `${newValue}%`;
+    previewPicture.style.transform = `scale(${newValue / 100})`;
   }
 };
 
 const onIncButtonClick = () => {
-  if (numberValue < Scale.MAX) {
-    numberValue += Scale.STEP;
-    valueScale.value = `${numberValue}%`;
-    previewPicture.style.transform = `scale(${numberValue / 100})`;
+  const newValue = getScaleValue() + Scale.STEP;
+  if (newValue <= Scale.MAX) {
+    valueScale.value = `${newValue}%`;
+    previewPicture.style.transform = `scale(${newValue / 100})`;
   }
+};
+
+const resetScale = () => {
+  valueScale.value = `${Scale.DEFAULT}%`;
+  previewPicture.style.transform = `scale(${Scale.DEFAULT / 100})`;
 };
 
 buttonSmaller.addEventListener('click', onDecButtonClick);
 
 buttonBigger.addEventListener('click', onIncButtonClick);
+
+export { resetScale };
