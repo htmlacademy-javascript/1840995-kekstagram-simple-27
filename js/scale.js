@@ -9,7 +9,8 @@ const valueScale = fieldScale.querySelector('.scale__control--value');
 const Scale = {
   STEP: 25,
   MAX: 100,
-  MIN: 25
+  MIN: 25,
+  DEFAULT: 100,
 };
 
 const getScaleValue = () => parseInt(valueScale.value, 10);
@@ -30,6 +31,13 @@ const onIncButtonClick = () => {
   }
 };
 
+const resetScale = () => {
+  valueScale.value = `${Scale.DEFAULT}%`;
+  previewPicture.style.transform = `scale(${Scale.DEFAULT / 100})`;
+};
+
 buttonSmaller.addEventListener('click', onDecButtonClick);
 
 buttonBigger.addEventListener('click', onIncButtonClick);
+
+export { resetScale };

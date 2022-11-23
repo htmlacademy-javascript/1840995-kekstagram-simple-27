@@ -17,7 +17,7 @@ const sendData = (onSuccess, onFail, data) => {
     MAIN_URL,
     {
       method: 'POST',
-      data,
+      body: data,
     },
   )
     .then((response) => {
@@ -31,6 +31,5 @@ const sendData = (onSuccess, onFail, data) => {
       onFail();
     });
 };
-
 
 export { getData, sendData };
