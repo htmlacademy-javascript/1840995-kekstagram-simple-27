@@ -71,10 +71,6 @@ const refreshSlider = () => {
   });
 };
 
-if (isDefaultEffect()) {
-  slider.classList.add('hidden');
-}
-
 const onFilterChange = (evt) => {
   const currentValue = evt.target.value;
   if (evt.target.matches('input[type="radio"]')) {
