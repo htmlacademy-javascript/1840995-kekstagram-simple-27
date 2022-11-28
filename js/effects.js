@@ -1,8 +1,5 @@
 import { form, previewPicture } from './util.js';
 
-const effectLevel = form.querySelector('.effect-level__value');
-const slider = form.querySelector('.effect-level__slider');
-
 const EFFECTS = [
   {
     name: 'none',
@@ -53,12 +50,14 @@ const EFFECTS = [
 ];
 
 const DEFAULT_EFFECT = EFFECTS[0];
+const effectLevel = form.querySelector('.effect-level__value');
+const slider = form.querySelector('.effect-level__slider');
 let currentEffect = DEFAULT_EFFECT;
-const isDefault = () => currentEffect === DEFAULT_EFFECT;
+const isDefaultEffect = () => currentEffect === DEFAULT_EFFECT;
 
 const refreshSlider = () => {
   slider.classList.remove('hidden');
-  if (isDefault()) {
+  if (isDefaultEffect()) {
     slider.classList.add('hidden');
   }
   slider.noUiSlider.updateOptions({
@@ -72,7 +71,7 @@ const refreshSlider = () => {
   });
 };
 
-if (isDefault()) {
+if (isDefaultEffect()) {
   slider.classList.add('hidden');
 }
 
@@ -91,7 +90,7 @@ const onFilterChange = (evt) => {
 const onSliderUpdates = () => {
   previewPicture.style.filter = 'none';
   effectLevel.value = '';
-  if (isDefault()) {
+  if (isDefaultEffect()) {
     return;
   }
   const sliderValue = slider.noUiSlider.get();
